@@ -1,2 +1,1 @@
-# Schedule created on typescript
-###### not completed yet
+# Schedule created on typescript 
