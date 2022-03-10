@@ -13,6 +13,8 @@ const Contacts = ({ Contacts }: Props) => {
             <th>Name</th>
             <th>Lastname</th>
             <th>Number</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -21,6 +23,8 @@ const Contacts = ({ Contacts }: Props) => {
             <td>{x.name}</td>
             <td>{x.lastname}</td>
             <td>{x.number}</td>
+            <td><button className="btn btn-warning rounded-3"><i className="fas fa-edit"></i></button></td>
+            <td><button className="btn btn-danger rounded-3"><i className="fas fa-trash"></i></button></td>
           </tr>
           ))}
         </tbody>

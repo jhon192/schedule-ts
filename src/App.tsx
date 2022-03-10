@@ -12,20 +12,29 @@ const App = (): JSX.Element => {
     },
   ]);
 
-  const getContactdata = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setContactdata([ ...Contactdata, { [event.target.name]: event.target.value } ])
+  const getContactdata = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      name: { value: string };
+      lastname: { value: string };
+      number: { value: number };
+    };
+
+    setContactdata([
+      ...Contactdata,
+      {
+        name: target.name.value,
+        lastname: target.lastname.value,
+        number: target.number.value,
+      },
+    ]);
+
+    
   };
-
-  const getClick = ( event: React.MouseEvent<HTMLButtonElement> ) => {
-    event.preventDefault()
-
-    console.log(Contactdata);
-
-  }
 
   return (
     <div className="w-100 h-100 d-flex">
-      <Schedule getContactdata={getContactdata} getClick={getClick} />
+      <Schedule getContactdata={getContactdata} />
       <Contacts Contacts={Contactdata} />
     </div>
   );
