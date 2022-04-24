@@ -1,40 +1,50 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import Contacts from "./components/Contacts";
 import Schedule from "./components/Schedule";
 import { ContactDatas } from "./interfaces/ContactDatas";
 
 const App = (): JSX.Element => {
-  const [Contactdata, setContactdata] = useState<ContactDatas[]>([
-    {
-      name: "jhon",
-      lastname: "garcia",
-      number: 1234567890,
-    },
-  ]);
+  const [Contactdata, setContactdata] = useState<ContactDatas[]>([]);
 
-  const getContactdata = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    const target = e.target as typeof e.target & {
-      name: { value: string };
-      lastname: { value: string };
-      number: { value: number };
-    };
+  const [data, setData] = useState<ContactDatas[]>([]);
 
-    setContactdata([
-      ...Contactdata,
-      {
-        name: target.name.value,
-        lastname: target.lastname.value,
-        number: target.number.value,
-      },
-    ]);
-
-    
+  const changeData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  const getData = () => {
+    console.log(data);
+  };
+
+  
+
+  useEffect(() => {
+    const getContactData = () => {
+      axios.get<ContactDatas[]>("https://fierce-river-38674.herokuapp.com/api/schedule").then((value) => {
+        value.data.map((value) => (
+          setContactdata([
+            ...Contactdata,
+            {
+              name: value.name,
+              lastname: value.lastname,
+              phone_number: value.phone_number,
+            },
+          ])
+        ))
+      })
+    }
+  
+    return () => {
+      getContactData();
+      console.log(Contactdata);
+    }
+  }, [Contactdata])
+  
 
   return (
     <div className="w-100 h-100 d-flex">
-      <Schedule getContactdata={getContactdata} />
+      <Schedule changeData={changeData} getData={getData} />
       <Contacts Contacts={Contactdata} />
     </div>
   );

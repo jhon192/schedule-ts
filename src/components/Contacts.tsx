@@ -5,6 +5,7 @@ interface Props {
 }
 
 const Contacts = ({ Contacts }: Props) => {
+
   return (
     <div className="w-100 h-100 m-1 p-1">
       <table className="table table-hover">
@@ -22,12 +23,13 @@ const Contacts = ({ Contacts }: Props) => {
             <tr className="table-info">
             <td>{x.name}</td>
             <td>{x.lastname}</td>
-            <td>{x.number}</td>
+            <td>{x.phone_number}</td>
             <td><button className="btn btn-warning rounded-3"><i className="fas fa-edit"></i></button></td>
             <td><button className="btn btn-danger rounded-3"><i className="fas fa-trash"></i></button></td>
           </tr>
           ))}
         </tbody>
+
       </table>
     </div>
   );
