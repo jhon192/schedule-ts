@@ -53,7 +53,7 @@ const Edit = ( { changeDataUpdated, putContactData }:Props) => {
               <label className="form-label">Phone number</label>
             </div>
             <div className="m-1 p-1 text-center">
-              <input type="submit" value="Send Info" className="btn btn-success" />
+              <input type="submit" value="Update Information" className="btn btn-success" />
             </div>
           </form>
         </div>
