@@ -1,23 +1,34 @@
-import React from "react";
+import React from 'react'
+import { useParams } from 'react-router-dom'
 
-interface props {
-  changeData(e: React.ChangeEvent<HTMLInputElement>): void
-  postContactData(e: React.FormEvent): void
+interface PropsID{
+    id: string
 }
 
-const Schedule = ({ changeData, postContactData }: props) => {
+interface Props{
+    changeDataUpdated(e: React.ChangeEvent<HTMLInputElement>): void
+    putContactData(id: string): void
+}
+
+const Edit = ( { changeDataUpdated, putContactData }:Props) => {
+
+    const { id } = useParams<PropsID>();
+
   return (
     <div className="h-100 w-100 d-flex align-items-center justify-content-center">
       <div className="card">
         <div className="card-body">
-          <form onSubmit={postContactData}>
+          <form onSubmit={(e) => {
+              e.preventDefault()
+              putContactData(id)
+          }}>
             <div className="m-1 p-1 form-floating">
               <input
                 type="text"
                 className="form-control"
                 placeholder="Name"
                 name="name"
-                onChange={changeData}
+                onChange={changeDataUpdated}
               />
               <label className="form-label">Name</label>
             </div>
@@ -27,7 +38,7 @@ const Schedule = ({ changeData, postContactData }: props) => {
                 className="form-control"
                 placeholder="lastname"
                 name="lastname"
-                onChange={changeData}
+                onChange={changeDataUpdated}
               />
               <label className="form-label">Lastname</label>
             </div>
@@ -37,7 +48,7 @@ const Schedule = ({ changeData, postContactData }: props) => {
                 className="form-control"
                 placeholder="Phone number"
                 name="phone_number"
-                onChange={changeData}
+                onChange={changeDataUpdated}
               />
               <label className="form-label">Phone number</label>
             </div>
@@ -48,7 +59,7 @@ const Schedule = ({ changeData, postContactData }: props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Schedule;
+export default Edit
